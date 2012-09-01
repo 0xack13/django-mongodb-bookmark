@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block page_header %}
+  <div class="page-header">
+    <h1>{{ post.title }}</h1>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <p>{{ post.description }}<p>
+  <p>{{ post.created_at }}</p>
+  <hr>
+  <h2>Notes</h2>
+  {% if post.notes %}
+    {% for note in post.notes %}
+       <p>{{ note.body }}</p>
+       <p><strong>{{ notes.author }}</strong> <small>on {{ note.created_at }}</small></p>
+      {{ note.text }}
+    {% endfor %}
+  {% endif %}
+{% endblock %}
