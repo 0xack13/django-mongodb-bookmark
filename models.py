@@ -5,6 +5,7 @@ import datetime
 from djangotoolbox.fields import ListField, EmbeddedModelField
 import urllib
 import BeautifulSoup
+import sys
 
 
 class Post(models.Model):
@@ -16,15 +17,13 @@ class Post(models.Model):
     description = models.CharField(max_length=255)
     notes = ListField(EmbeddedModelField('Note'), editable=False)
 
-    #def save(self):
-        #soup = BeautifulSoup.BeautifulSoup(urllib.urlopen(self.url))
-        #self.title = soup.title.string
-        #super(Post, self).save()
-        #date = datetime.date.today()
-        #self.slug = '%i/%i/%i/%s' % (
-        #    date.year, date.month, date.day, slugify(self.url)
-        #)
-        #super(Post, self).save()
+    def save(self):
+        super(Post, self).save()
+        #print >>sys.stderr, self.url
+        soup = BeautifulSoup.BeautifulSoup(urllib.urlopen("http://" + self.url))
+        #print >>sys.stderr, soup.title.string
+        self.title = soup.title.string
+        super(Post, self).save()
 
     def get_absolute_url(self):
         return reverse('post', kwargs={"slug": self.slug})
