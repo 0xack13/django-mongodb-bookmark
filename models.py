@@ -20,7 +20,7 @@ class Post(models.Model):
     def save(self):
         super(Post, self).save()
         #print >>sys.stderr, self.url
-        soup = BeautifulSoup.BeautifulSoup(urllib.urlopen("http://" + self.url))
+        soup = BeautifulSoup.BeautifulSoup(urllib.urlopen(self.url))
         #print >>sys.stderr, soup.title.string
         self.title = soup.title.string
         super(Post, self).save()

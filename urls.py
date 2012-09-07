@@ -4,8 +4,8 @@ from bookmark.views import PostDetailView
 from bookmark.models import Post
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', ListView.as_view(
@@ -18,4 +18,5 @@ urlpatterns = patterns('',
         context_object_name="post"),
         name="post"
     ),
+    url(r'^admin/', include(admin.site.urls)),
 )
